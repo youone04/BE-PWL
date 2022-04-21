@@ -2,7 +2,7 @@ const db = require("../../db");
 
 exports.getBuku = async (req, res) => {
   try {
-    const data = await db("buku");
+    const data = await db("buku").orderBy('id','asc');
     res.status(200).send({
       status: 200,
       message: "Sucesss",
@@ -38,7 +38,8 @@ exports.addBuku = async (req, res) => {
 };
 
 exports.editBuku = async (req, res) => {
-  const { id, nama_buku, jumlah_buku } = req.body;
+  const { nama_buku, jumlah_buku } = req.body;
+  const {id} = req.params;
   try {
     await db("buku").where("id", id).update({ nama_buku, jumlah_buku });
     res.status(200).send({
@@ -57,7 +58,7 @@ exports.editBuku = async (req, res) => {
 };
 
 exports.deleteBuku = async (req, res) => {
-  const {id} = req.params.id
+  const {id} = req.params;
   try {
     await db("buku").where("id", id).del();
     res.status(200).send({

@@ -9,8 +9,11 @@ router.get("/auth",verifikasi(),controller.controllerLogin.auth);
 // manage buku
 router.get('/buku', controller.controllerBuku.getBuku);
 router.post('/buku', controller.controllerBuku.addBuku);
-router.put('/buku', controller.controllerBuku.editBuku);
+router.put('/buku/:id', controller.controllerBuku.editBuku);
 router.delete('/buku/:id', controller.controllerBuku.deleteBuku);
-
-
+// peminjam buku
+router.get('/peminjam', controller.controllerPeminjam.getPeminjam);
+router.post('/peminjam', controller.controllerPeminjam.addPeminjam);
+// router.put('/peminjam/:id', controller.controllerBuku.editBuku);
+// router.delete('/peminjam/:id', controller.controllerBuku.deleteBuku);
 module.exports = { router };
