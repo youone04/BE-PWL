@@ -14,6 +14,6 @@ router.delete('/buku/:id', controller.controllerBuku.deleteBuku);
 // peminjam buku
 router.get('/peminjam', controller.controllerPeminjam.getPeminjam);
 router.post('/peminjam', controller.controllerPeminjam.addPeminjam);
-// router.put('/peminjam/:id', controller.controllerBuku.editBuku);
-// router.delete('/peminjam/:id', controller.controllerBuku.deleteBuku);
+router.put('/peminjam/:id', controller.controllerPeminjam.updatePeminjam);
+router.delete('/peminjam/:id', controller.controllerPeminjam.deletePeminjam);
 module.exports = { router };
