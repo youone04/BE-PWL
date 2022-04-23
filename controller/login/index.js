@@ -29,7 +29,6 @@ exports.login = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error.response && error.response.data.message ? error.response.data.message : error.message)
     res.status(500).send({
       status: 500,
       message: error.response && error.response.data.message ? error.response.data.message : error.message,

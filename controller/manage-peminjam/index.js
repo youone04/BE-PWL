@@ -46,7 +46,7 @@ exports.deletePeminjam = async (req, res) => {
       message: "Sucesss",
     });
   } catch (error) {
-    console.log(error)
+   
     res.status(500).send({
       status: 500,
       message:

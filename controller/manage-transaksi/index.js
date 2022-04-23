@@ -8,7 +8,7 @@ exports.addTransaksi = async (req, res) => {
       message: "Sucesss",
     });
   } catch (error) {
-    console.log(error);
+
     res.status(500).send({
       status: 500,
       message:
@@ -42,7 +42,7 @@ exports.getTransaksi = async (req, res) => {
       count: count,
     });
   } catch (error) {
-    console.log(error);
+
     res.status(500).send({
       status: 500,
       message:
@@ -62,7 +62,7 @@ exports.pengembalian = async (req, res) => {
       message: "Sucesss",
     });
   } catch (error) {
-    console.log(error);
+
     res.status(500).send({
       status: 500,
       message:
@@ -85,7 +85,7 @@ exports.perpanjangan = async (req, res) => {
       message: "Sucesss",
     });
   } catch (error) {
-    console.log(error);
+
     res.status(500).send({
       status: 500,
       message:
