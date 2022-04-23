@@ -21,4 +21,8 @@ router.get('/transaksi', controller.controllerTransaksi.getTransaksi);
 router.post('/transaksi', controller.controllerTransaksi.addTransaksi);
 router.put('/transaksi/:id', controller.controllerTransaksi.pengembalian);
 router.put('/perpanjang/:id', controller.controllerTransaksi.perpanjangan);
+//manage log
+router.get('/log-peminjaman', controller.controllerLog.logPeminjaman);
+router.get('/log-pengembalian', controller.controllerLog.logPengembalian);
+
 module.exports = { router };
