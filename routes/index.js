@@ -16,4 +16,9 @@ router.get('/peminjam', controller.controllerPeminjam.getPeminjam);
 router.post('/peminjam', controller.controllerPeminjam.addPeminjam);
 router.put('/peminjam/:id', controller.controllerPeminjam.updatePeminjam);
 router.delete('/peminjam/:id', controller.controllerPeminjam.deletePeminjam);
+// manage transaksi
+router.get('/transaksi', controller.controllerTransaksi.getTransaksi);
+router.post('/transaksi', controller.controllerTransaksi.addTransaksi);
+router.put('/transaksi/:id', controller.controllerTransaksi.pengembalian);
+router.put('/perpanjang/:id', controller.controllerTransaksi.perpanjangan);
 module.exports = { router };
