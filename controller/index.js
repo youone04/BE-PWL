@@ -3,11 +3,15 @@ const controllerLogin = require('../controller/login');
 const controllerPeminjam = require('../controller/manage-peminjam');
 const controllerTransaksi = require('../controller/manage-transaksi');
 const controllerLog = require('../controller/manage-log');
+const controllerDashboard = require('../controller/dashboard');
+const controllerAdmin = require('../controller/manage-admin');
 
 module.exports = {
     controllerBuku,
     controllerLogin,
     controllerPeminjam,
     controllerTransaksi,
-    controllerLog
+    controllerLog,
+    controllerDashboard,
+    controllerAdmin
   };

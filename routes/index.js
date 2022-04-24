@@ -24,5 +24,9 @@ router.put('/perpanjang/:id', controller.controllerTransaksi.perpanjangan);
 //manage log
 router.get('/log-peminjaman', controller.controllerLog.logPeminjaman);
 router.get('/log-pengembalian', controller.controllerLog.logPengembalian);
+// dashboard
+router.get('/dashboard', controller.controllerDashboard.dashboard);
+//admin
+router.get('/admin', controller.controllerAdmin.admin);
 
 module.exports = { router };
