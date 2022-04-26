@@ -5,7 +5,7 @@ exports.login = async (req, res) => {
   const { username, password } = req.body;
   try {
     const hasil = await db("user")
-      .select("id", "username")
+      .select("id", "username" , "role")
       .where("username", username)
       .where("password", password)
       .first();
@@ -13,6 +13,7 @@ exports.login = async (req, res) => {
       const dataUSer = {
         id: hasil.id,
         username: hasil.username,
+        role: hasil.role,
         exp: Math.floor(Date.now() / 1000) + 60 * 60 * 12,
       };
       let token = await jwt.sign(dataUSer, process.env.SECRET_TOKEN);
