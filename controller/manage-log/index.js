@@ -98,21 +98,33 @@ exports.logPengembalian = async (req, res) => {
     if (search !== "") {
       const data = await db("transaksi")
         .where("transaksi.id", "like", `%${search}%`)
+        .andWhere("transaksi.pengembalian", true)
         .orWhere("transaksi.id", "like", `%${capitalize.words(search)}%`)
+        .andWhere("transaksi.pengembalian", true)
         .orWhere("transaksi.id", "like", `%${search.toLowerCase()}%`)
+        .andWhere("transaksi.pengembalian", true)
         .orWhere("transaksi.id", "like", `%${search.toUpperCase()}%`)
+        .andWhere("transaksi.pengembalian", true)
         .where("buku.nama_buku", "like", `%${search}%`)
+        .andWhere("transaksi.pengembalian", true)
         .orWhere("buku.nama_buku", "like", `%${capitalize.words(search)}%`)
+        .andWhere("transaksi.pengembalian", true)
         .orWhere("buku.nama_buku", "like", `%${search.toLowerCase()}%`)
+        .andWhere("transaksi.pengembalian", true)
         .orWhere("buku.nama_buku", "like", `%${search.toUpperCase()}%`)
+        .andWhere("transaksi.pengembalian", true)
         .where("peminjam.nama_peminjam", "like", `%${search}%`)
+        .andWhere("transaksi.pengembalian", true)
         .orWhere(
           "peminjam.nama_peminjam",
           "like",
           `%${capitalize.words(search)}%`
         )
+        .andWhere("transaksi.pengembalian", true)
         .orWhere("peminjam.nama_peminjam", "like", `%${search.toLowerCase()}%`)
+        .andWhere("transaksi.pengembalian", true)
         .orWhere("peminjam.nama_peminjam", "like", `%${search.toUpperCase()}%`)
+        .andWhere("transaksi.pengembalian", true)
         .join("peminjam", "peminjam.id", "transaksi.peminjam_id")
         .join("buku", "buku.id", "transaksi.buku_id")
         .select(
@@ -124,8 +136,7 @@ exports.logPengembalian = async (req, res) => {
           "transaksi.denda",
           "transaksi.updated_at"
         )
-        .orderBy("transaksi.id", "asc")
-        .where("transaksi.pengembalian", true);
+        .orderBy("transaksi.id", "asc");
       const sumDenda = await db.raw(
         `SELECT SUM(denda) FROM transaksi WHERE pengembalian = ${true}`
       );
@@ -152,6 +163,7 @@ exports.logPengembalian = async (req, res) => {
       const data = await db("transaksi")
       .join("peminjam", "peminjam.id", "transaksi.peminjam_id")
       .join("buku", "buku.id", "transaksi.buku_id")
+      .where("transaksi.pengembalian", true)
       .select(
         "peminjam.nama_peminjam",
         "buku.nama_buku",
@@ -162,7 +174,6 @@ exports.logPengembalian = async (req, res) => {
         "transaksi.updated_at"
       )
       .orderBy("transaksi.id", "asc")
-      .where("transaksi.pengembalian", true);
     const sumDenda = await db.raw(
       `SELECT SUM(denda) FROM transaksi WHERE pengembalian = ${true}`
     );

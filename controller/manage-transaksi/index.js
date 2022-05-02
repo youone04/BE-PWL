@@ -3,6 +3,18 @@ const capitalize = require("capitalize");
 
 exports.addTransaksi = async (req, res) => {
   try {
+    const cekBuku = await db("transaksi")
+      .where("pengembalian", false)
+      .andWhere("peminjam_id", req.body.peminjam_id)
+      .andWhere("buku_id", req.body.buku_id)
+      .select("*");
+    if (cekBuku.length > 0) {
+      res.status(403).send({
+        status: 403,
+        message: "User Sudah Meminjam Buku Yang Sama",
+      });
+      return;
+    }
     await db("transaksi").insert(req.body);
     res.status(200).send({
       status: 200,
@@ -21,23 +33,37 @@ exports.addTransaksi = async (req, res) => {
 
 exports.getTransaksi = async (req, res) => {
   const search = req.query.search ? req.query.search : "";
-
   try {
     if (search !== "") {
       const data = await db("transaksi")
         .where("transaksi.id", "like", `%${search}%`)
+        .andWhere("transaksi.pengembalian", false)
         .orWhere("transaksi.id", "like", `%${capitalize.words(search)}%`)
+        .andWhere("transaksi.pengembalian", false)
         .orWhere("transaksi.id", "like", `%${search.toLowerCase()}%`)
+        .andWhere("transaksi.pengembalian", false)
         .orWhere("transaksi.id", "like", `%${search.toUpperCase()}%`)
+        .andWhere("transaksi.pengembalian", false)
         .where("buku.nama_buku", "like", `%${search}%`)
+        .andWhere("transaksi.pengembalian", false)
         .orWhere("buku.nama_buku", "like", `%${capitalize.words(search)}%`)
+        .andWhere("transaksi.pengembalian", false)
         .orWhere("buku.nama_buku", "like", `%${search.toLowerCase()}%`)
+        .andWhere("transaksi.pengembalian", false)
         .orWhere("buku.nama_buku", "like", `%${search.toUpperCase()}%`)
+        .andWhere("transaksi.pengembalian", false)
         .where("peminjam.nama_peminjam", "like", `%${search}%`)
-        .orWhere("peminjam.nama_peminjam", "like", `%${capitalize.words(search)}%`)
+        .andWhere("transaksi.pengembalian", false)
+        .orWhere(
+          "peminjam.nama_peminjam",
+          "like",
+          `%${capitalize.words(search)}%`
+        )
+        .andWhere("transaksi.pengembalian", false)
         .orWhere("peminjam.nama_peminjam", "like", `%${search.toLowerCase()}%`)
+        .andWhere("transaksi.pengembalian", false)
         .orWhere("peminjam.nama_peminjam", "like", `%${search.toUpperCase()}%`)
-        .where("transaksi.pengembalian", false)
+        .andWhere("transaksi.pengembalian", false)
         .join("peminjam", "peminjam.id", "transaksi.peminjam_id")
         .join("buku", "buku.id", "transaksi.buku_id")
         .select(
@@ -49,7 +75,9 @@ exports.getTransaksi = async (req, res) => {
           "transaksi.jumlah_perpanjang"
         )
         .orderBy("transaksi.id", "asc");
-      const count = await db("transaksi").count("transaksi.id").where("transaksi.pengembalian", false).first();
+        const lengthAll = await db("transaksi")
+        .count("transaksi.id")
+        .first();
       let tempData = [];
       if (data.length > parseInt(req.query.limit)) {
         tempData = data
@@ -65,7 +93,8 @@ exports.getTransaksi = async (req, res) => {
         status: 200,
         message: "Sucesss",
         data: tempData,
-        count: count,
+        count: data.length,
+        lengthAll: lengthAll
       });
     } else {
       const data = await db("transaksi")
@@ -81,7 +110,11 @@ exports.getTransaksi = async (req, res) => {
           "transaksi.jumlah_perpanjang"
         )
         .orderBy("transaksi.id", "asc");
-      const count = await db("transaksi").count("transaksi.id").where("transaksi.pengembalian", false).first();
+
+        const lengthAll = await db("transaksi")
+        .count("transaksi.id")
+        .first();
+
       let tempData = [];
       if (data.length > parseInt(req.query.limit)) {
         tempData = data
@@ -99,11 +132,12 @@ exports.getTransaksi = async (req, res) => {
         status: 200,
         message: "Sucesss",
         data: tempData,
-        count: count,
+        count: data.length,
+        lengthAll: lengthAll
       });
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).send({
       status: 500,
       message:
