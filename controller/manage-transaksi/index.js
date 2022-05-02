@@ -49,7 +49,7 @@ exports.getTransaksi = async (req, res) => {
           "transaksi.jumlah_perpanjang"
         )
         .orderBy("transaksi.id", "asc");
-      const count = await db("transaksi").count("transaksi.id").first();
+      const count = await db("transaksi").count("transaksi.id").where("transaksi.pengembalian", false).first();
       let tempData = [];
       if (data.length > parseInt(req.query.limit)) {
         tempData = data
@@ -81,7 +81,7 @@ exports.getTransaksi = async (req, res) => {
           "transaksi.jumlah_perpanjang"
         )
         .orderBy("transaksi.id", "asc");
-      const count = await db("transaksi").count("transaksi.id").first();
+      const count = await db("transaksi").count("transaksi.id").where("transaksi.pengembalian", false).first();
       let tempData = [];
       if (data.length > parseInt(req.query.limit)) {
         tempData = data
@@ -93,6 +93,8 @@ exports.getTransaksi = async (req, res) => {
       } else {
         tempData = data;
       }
+
+      // console.log(tempData)
       res.status(200).send({
         status: 200,
         message: "Sucesss",
