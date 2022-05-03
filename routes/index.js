@@ -31,6 +31,7 @@ router.get('/admin', controller.controllerAdmin.admin);
 router.post('/admin', controller.controllerAdmin.addAdmin);
 router.put('/admin/:id', controller.controllerAdmin.EditAdmin);
 router.delete('/admin/:id', controller.controllerAdmin.deleteAdmin);
-
+// laporan
+router.get('/laporan-denda', controller.controllerDenda.laporanDenda);
 
 module.exports = { router };

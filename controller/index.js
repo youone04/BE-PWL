@@ -5,6 +5,7 @@ const controllerTransaksi = require('../controller/manage-transaksi');
 const controllerLog = require('../controller/manage-log');
 const controllerDashboard = require('../controller/dashboard');
 const controllerAdmin = require('../controller/manage-admin');
+const controllerDenda = require('../controller/laporan')
 
 module.exports = {
     controllerBuku,
@@ -13,5 +14,6 @@ module.exports = {
     controllerTransaksi,
     controllerLog,
     controllerDashboard,
-    controllerAdmin
+    controllerAdmin,
+    controllerDenda
   };

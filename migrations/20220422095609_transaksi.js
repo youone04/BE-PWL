@@ -6,7 +6,6 @@ exports.up = function(knex) {
         table.string('buku_id').references('id').inTable('buku').onDelete('CASCADE');
         table.datetime('start').notNullable();
         table.datetime('end').notNullable();
-        // table.datetime('dikembalikan');
         table.boolean('pengembalian').defaultTo(false);
         table.integer('denda');
         table.integer('jumlah_perpanjang').defaultTo(0);
